@@ -1,62 +1,63 @@
-#include "main.h"
+#include <stdio.h>
+#include <stdarg.h>
 
-/**
- * _printf - a function that prints to std output
- * @format: a charaster string
- *
- * Return: the number of chars printed
- */
-
-int _printf(const char *format, ...)
+int _myprintf(const char *ptr, ...)
 {
-	int count = 0, string_len = 0;
-	char x, *string;
-	va_list arg_list;
+	va_list args;
 
-	if (format == NULL)
+	va_start(args, ptr);
+
+	int count = 0;
+
+	while (*ptr)
 	{
-		return (-1);
-	}
-	va_start(arg_list, format);
-	while (*format)
-	{
-		if (*format != '%')
+		if (*ptr != '%')
 		{
-			write(1, format, 1);
+			putchar(*ptr);
 			count++;
 		}
 		else
 		{
-			format++;
-			if (*format == '\0')
+			ptr++;
+			switch (*ptr)
 			{
-			break;
-			}
-			if (*format == 'c')
-			{
-				x = va_arg(arg_list, int);
-				write(1, &x, 1);
-				count++;
-			}
-			if (*format == 's')
-			{
-				string = va_arg(arg_list, char*);
-				while (string[string_len] != '\0')
-				{
-					string_len++;
-				}
-				write(1, string, string_len);
-				count = count + string_len;
-			}
-			if (*format == '%')
-			{
-				write(1, format, 1);
-				count++;
-			}
+				case 'c':
+					putchar (va_arg(args, int));
+					count++;
+					break;
+				case 's':
+					{
+						const char *s = va_arg(args, const char *);
 
+						while (*s)
+						{
+							putchar(*s);
+							s++;
+							count++;
+						}
+					}
+					break;
+				case '%':
+					putchar ('%');
+					count++;
+					break;
+				default:
+					putchar('?');
+					count++;
+					break;
+			}
 		}
-		format++;
+		ptr++;
 	}
-	va_end(arg_list);
+
+	va_end(args);
 	return (count);
+}
+
+int main(void)
+{
+	const char *message = "I'm not going anywhere. You can print that wherever you want to. I'm here and I'm a Spur for life";
+	int chars_printed = _myprintf("%c %s %%\n", message);
+	printf("\n total characters pinted: %d\n", chars_printed);
+	return (0);
 }
