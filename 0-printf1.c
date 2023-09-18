@@ -1,11 +1,5 @@
-#include "main.h"
-
-/**
- * _printf - a function that prints to std output
- * @format: a charaster string
- *
- * Return: the number of chars printed
- */
+#include <stdio.h>
+#include <stdarg.h>
 
 int _printf(const char *format, ...)
 {
