@@ -8,19 +8,18 @@ int _myprintf(const char *ptr, ...)
 	va_start(args, ptr);
 
 	int count = 0;
-	int i = 0;
 
-	while (ptr[i])
+	while (*ptr)
 	{
-		if (ptr[i] != '%')
+		if (*ptr != '%')
 		{
-			putchar(ptr[i]);
+			putchar(*ptr);
 			count++;
 		}
 		else
 		{
-			i++;
-			switch (ptr[i])
+			ptr++;
+			switch (*ptr)
 			{
 				case 'c':
 					putchar (va_arg(args, int));
@@ -48,7 +47,7 @@ int _myprintf(const char *ptr, ...)
 					break;
 			}
 		}
-		i++;
+		ptr++;
 	}
 
 	va_end(args);
@@ -57,7 +56,8 @@ int _myprintf(const char *ptr, ...)
 
 int main(void)
 {
-	const char *message = "I'm not going anywhere. You can print that wherever you want to. I'm here and I'm a Spur for life";
+	const char *message = "I'm not going anywhere. You can print that wherever you want to.
+	       	I'm here and I'm a Spur for life";
 	int chars_printed = _myprintf("%s %c %s %%\n", message);
 	printf("\n total characters pinted: %d\n", chars_printed);
 	return (0);
