@@ -10,10 +10,10 @@
 int _printf(const char *format, ...)
 {
 	int count = 0, string_len = 0;
-	char x, *string;
+	char x, *string = 0;
 	va_list arg_list;
 
-	if (format == NULL)
+	if (format == NULL || string == NULL)
 	{
 		return (-1);
 	}
