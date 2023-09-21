@@ -1,0 +1,25 @@
+#include "main.h"
+
+/**
+_printf - function that produces output according to a format
+@format: the format of the printed arguments
+@Return: the number of characters printed
+*/
+
+int _printf(const char *format, ...)
+{
+int count = 0;
+va_list args;
+
+va_star(args, format);
+
+while (format != 0)
+{
+if (format != '%')
+{
+write(format);
+}
+format++;
+}
+return (count);
+}
